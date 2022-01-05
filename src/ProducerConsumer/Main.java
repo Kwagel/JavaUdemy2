@@ -12,9 +12,9 @@ public class Main {
 	
 	public static void main(String[] args) {
 		List<String> buffer = new ArrayList<>();
-		MyProducer producer = new MyProducer(buffer,ThreadColour.ANSI_RED);
-		MyConsumer consumer1 = new MyConsumer(buffer,ThreadColour.ANSI_BLUE);
-		MyConsumer consumer2 = new MyConsumer(buffer,ThreadColour.ANSI_GREEN);
+		MyProducer producer = new MyProducer(buffer, ThreadColour.ANSI_RED);
+		MyConsumer consumer1 = new MyConsumer(buffer, ThreadColour.ANSI_BLUE);
+		MyConsumer consumer2 = new MyConsumer(buffer, ThreadColour.ANSI_GREEN);
 		
 		new Thread(producer).start();
 		new Thread(consumer1).start();
@@ -38,15 +38,18 @@ class MyProducer implements Runnable {
 		for (String num : nums) {
 			try {
 				System.out.println(colour + "adding..." + num);
-				buffer.add(num);
-				
+				synchronized (buffer) {
+					buffer.add(num);
+				}
 				Thread.sleep(rand.nextInt(1000));
 			} catch (InterruptedException e) {
 				System.out.println("Producer was interrupted");
 			}
 		}
 		System.out.println(colour + " Adding EOF and exiting...");
-		buffer.add("EOF");
+		synchronized (buffer) {
+			buffer.add("EOF");
+		}
 	}
 }
 
@@ -63,15 +66,18 @@ class MyConsumer implements Runnable {
 	
 	public void run() {
 		while (true) {
-			if (buffer.isEmpty()) {
-				continue;
-			}
-			if (buffer.get(0).equals(EOF)) {
+			synchronized (buffer) {
+				if (buffer.isEmpty()) {
+					continue;
+				}
+				if (buffer.get(0).equals(EOF)) {
 //				exiting without removing EOf so other runs don't infinite loops
-				System.out.println(colour + "exiting");
-				break;
-			} else {
-				System.out.println(colour + "Removed " + buffer.remove(0));
+					System.out.println(colour + "exiting");
+					break;
+				} else {
+					System.out.println(colour + "Removed " + buffer.remove(0));
+					
+				}
 			}
 		}
 	}
