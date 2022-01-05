@@ -31,10 +31,11 @@ class Countdown {
 			default:
 				colour = ThreadColour.ANSI_GREEN;
 		}
-//		variables have a lock feature, which means that threads will have to compete for it, however for local variables, they aare created separately, so they won't have functionality if used unless its on a variable the threads  actually share
+//		variables have a lock feature, which means that threads will have to compete for  to own and use a variable, however for local variables, they are created separately, so they won't have functionality if used unless its on a variable the threads  actually share
 //		Strings are unique and can be used to synchronise threads as JVM using string pools which are reused
 		synchronized (this) {
 //			you can synchronise to the method itself. which is referred to using this
+//			only synchronise code that must be synchronised, for example this for loop, as it can slow down performance
 			for (i = 10; i > 0; i--) {
 				System.out.println(colour + Thread.currentThread().getName() + ": i = " + i);
 			}
