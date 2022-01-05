@@ -14,7 +14,7 @@ package MultipleThreads;
 }
 
 class Countdown {
-	 
+//	 in this instance, the thread share the variable on the heap, and since running is in a random order, the results cannot be consistent
 		private int i;
 	public void doCountdown() {
 		String colour;
