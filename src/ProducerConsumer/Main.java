@@ -3,6 +3,7 @@ package ProducerConsumer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static ProducerConsumer.Main.EOF;
@@ -15,13 +16,38 @@ public class Main {
 	public static void main(String[] args) {
 		List<String> buffer = new ArrayList<>();
 		ReentrantLock bufferLock = new ReentrantLock();
+		
+		
+		ExecutorService executorService = Executors.newFixedThreadPool(3);
+		
 		MyProducer producer = new MyProducer(buffer, ThreadColour.ANSI_RED, bufferLock);
 		MyConsumer consumer1 = new MyConsumer(buffer, ThreadColour.ANSI_BLUE, bufferLock);
 		MyConsumer consumer2 = new MyConsumer(buffer, ThreadColour.ANSI_GREEN, bufferLock);
+//		you pass and execute classes with the Runnable interface or threads using .execute()
+		executorService.execute(producer);
+		executorService.execute(consumer1);
+		executorService.execute(consumer2);
 		
-		new Thread(producer).start();
-		new Thread(consumer1).start();
-		new Thread(consumer2).start();
+		Future<String> future = executorService.submit(new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+				System.out.println(ThreadColour.ANSI_PURPLE + "I'm being printed for the Callable  class");
+				return "this is the callable  result";
+			}
+		});
+		try {
+			System.out.println(future.get());
+		} catch (ExecutionException e) {
+			System.out.println("Something went wrong");
+		} catch (InterruptedException e) {
+			System.out.println("Thread running the task was interrupted");
+		}
+//		shutdown waits for any executing tasks to terminate first
+//		will not accept any new tasks
+		executorService.shutdown();
+//		this will interrupt running tasks if possible and try to shut down asap
+//		executorService.shutdownNow();
+	
 	}
 }
 
@@ -81,7 +107,7 @@ class MyConsumer implements Runnable {
 	
 	public void run() {
 		int counter = 0;
-	
+		
 		while (true) {
 			if (bufferLock.tryLock()) {
 				try {
