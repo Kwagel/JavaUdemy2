@@ -14,15 +14,15 @@ public class Main {
 	public static final String EOF = "EOF";
 	
 	public static void main(String[] args) {
-		List<String> buffer = new ArrayList<>();
-		ReentrantLock bufferLock = new ReentrantLock();
+//		ArrayBlockingQueue make it so you don't need to use reentrant locks, but are bounded, so you must determine the size
+		ArrayBlockingQueue<String> buffer = new ArrayBlockingQueue<String>(6);
 		
 		
-		ExecutorService executorService = Executors.newFixedThreadPool(3);
+		ExecutorService executorService = Executors.newFixedThreadPool(5);
 		
-		MyProducer producer = new MyProducer(buffer, ThreadColour.ANSI_RED, bufferLock);
-		MyConsumer consumer1 = new MyConsumer(buffer, ThreadColour.ANSI_BLUE, bufferLock);
-		MyConsumer consumer2 = new MyConsumer(buffer, ThreadColour.ANSI_GREEN, bufferLock);
+		MyProducer producer = new MyProducer(buffer, ThreadColour.ANSI_RED);
+		MyConsumer consumer1 = new MyConsumer(buffer, ThreadColour.ANSI_BLUE);
+		MyConsumer consumer2 = new MyConsumer(buffer, ThreadColour.ANSI_GREEN);
 //		you pass and execute classes with the Runnable interface or threads using .execute()
 		executorService.execute(producer);
 		executorService.execute(consumer1);
@@ -32,7 +32,7 @@ public class Main {
 			@Override
 			public String call() throws Exception {
 				System.out.println(ThreadColour.ANSI_PURPLE + "I'm being printed for the Callable  class");
-				return "this is the callable  result";
+				return "this is the callable result";
 			}
 		});
 		try {
@@ -52,15 +52,15 @@ public class Main {
 }
 
 class MyProducer implements Runnable {
-	private List<String> buffer;
+	private ArrayBlockingQueue<String> buffer;
 	private String colour;
-	private ReentrantLock bufferLock;
 	
-	public MyProducer(List<String> buffer, String colour, ReentrantLock bufferLock) {
+	
+	public MyProducer(ArrayBlockingQueue<String> buffer, String colour) {
 		this.buffer = buffer;
 		this.colour = colour;
-		this.bufferLock = bufferLock;
 	}
+	
 	
 	@Override
 	public void run() {
@@ -70,63 +70,55 @@ class MyProducer implements Runnable {
 			try {
 				System.out.println(colour + "adding..." + num);
 //				must lock and unlock manually
-				bufferLock.lock();
-				try {
-					buffer.add(num);
-				} finally {
-					bufferLock.unlock();
-				}
+//				put automatically blocks the queue
+				buffer.put(num);
 				Thread.sleep(rand.nextInt(1000));
 			} catch (InterruptedException e) {
 				System.out.println("Producer was interrupted");
 			}
 		}
 		System.out.println(colour + "Adding EOF and exiting...");
-		bufferLock.lock();
+		
 		try {
-			buffer.add(EOF);
+			buffer.put(EOF);
 //			finally, ensures that you only unlock once
-		} finally {
-			bufferLock.unlock();
+		} catch (InterruptedException e) {
+			System.out.println();
 		}
 	}
 }
 
 class MyConsumer implements Runnable {
-	private List<String> buffer;
+	private ArrayBlockingQueue<String> buffer;
 	private String colour;
-	private ReentrantLock bufferLock;
 	
-	public MyConsumer(List<String> buffer, String colour, ReentrantLock bufferLock) {
+	
+	public MyConsumer(ArrayBlockingQueue<String> buffer, String colour) {
 		this.buffer = buffer;
 		this.colour = colour;
-		this.bufferLock = bufferLock;
 	}
 	
 	@Override
 	
 	public void run() {
-		int counter = 0;
+		
 		
 		while (true) {
-			if (bufferLock.tryLock()) {
+			synchronized (buffer) {
 				try {
 					if (buffer.isEmpty()) {
 						continue;
 					}
-					System.out.println(colour + "The counter  = " + counter);
-					if (buffer.get(0).equals(EOF)) {
+					if (buffer.peek().equals(EOF)) {
 //				exiting without removing EOF so other runs don't infinite loops
 						System.out.println(colour + "exiting");
 						break;
 					} else {
-						System.out.println(colour + "Removed " + buffer.remove(0));
+						System.out.println(colour + "Removed " + buffer.take());
 					}
-				} finally {
-					bufferLock.unlock();
+				} catch (InterruptedException e) {
+					System.out.println();
 				}
-			} else {
-				counter++;
 			}
 		}
 	}
