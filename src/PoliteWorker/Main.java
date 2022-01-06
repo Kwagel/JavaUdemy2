@@ -23,6 +23,6 @@ public class Main {
 				worker2.work(sharedResource, worker1);
 			}
 		}).start();
-		
+//		at
 	}
 }
