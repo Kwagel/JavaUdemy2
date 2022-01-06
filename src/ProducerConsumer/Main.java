@@ -1,10 +1,7 @@
 package ProducerConsumer;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.ReentrantLock;
 
 import static ProducerConsumer.Main.EOF;
 
@@ -14,8 +11,8 @@ public class Main {
 	public static final String EOF = "EOF";
 	
 	public static void main(String[] args) {
-//		ArrayBlockingQueue make it so you don't need to use reentrant locks, but are bounded, so you must determine the size
-		ArrayBlockingQueue<String> buffer = new ArrayBlockingQueue<String>(6);
+//		ArrayBlockingQueue make it, so you don't need to use reentrant locks, but are bounded, so you must determine the size
+		ArrayBlockingQueue<String> buffer = new ArrayBlockingQueue<>(6);
 		
 		
 		ExecutorService executorService = Executors.newFixedThreadPool(5);
