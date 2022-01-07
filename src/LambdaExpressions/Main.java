@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static LambdaExpressions.Main.doStringStuff;
+
 public class Main {
 	public static void main(String[] args) {
 //		lambda have 3 parts; argument list, error token and body
@@ -44,10 +46,17 @@ public class Main {
 		}
 //		define the interface method with a lambda, this is basically an easier to define a method
 //		you can only do this, for interfaces with 1 method
-		UpperConcat uc = ( s1,  s2) -> s1.toUpperCase() + s2.toUpperCase();
+		UpperConcat uc = (s1, s2) -> {
+			String result = s1.toUpperCase() + s2.toUpperCase();
+			return result;
+		};
 //		using the lambda and then putting in the required data
 		String sillyString = doStringStuff(uc, employees.get(0).getName(), employees.get(1).getName());
 		System.out.println(sillyString);
+		
+		AnotherClass anotherClass = new AnotherClass();
+		System.out.println(anotherClass.doSomething());
+		
 	}
 	
 	public final static String doStringStuff(UpperConcat uc, String s1, String s2) {
@@ -83,4 +92,46 @@ class Employee {
 
 interface UpperConcat {
 	public String upperAndConcat(String s1, String s2);
+}
+
+class AnotherClass {
+	
+	public String doSomething() {
+//		UpperConcat uc = (s1, s2) -> {
+//			System.out.println("The Lambda's class's name is " + getClass().getSimpleName());
+//			String result = s1.toUpperCase() + s2.toUpperCase();
+//			return result;
+//		};
+		int i = 0;
+		UpperConcat uc = (s1, s2) -> {
+			System.out.println("The lambda expression's class is " + getClass().getSimpleName());
+			System.out.println("I within lambda " + i);
+			String result = s1.toUpperCase() + s2.toUpperCase();
+			return result;
+		};
+
+//			UpperConcat uc = new UpperConcat() {
+//				@Override
+//				public String upperAndConcat(String s1, String s2) {
+////					for anonymous classes, the value is copied into a variable that the anon class holds, which isn't the local variable outside
+////					you cannot update it because the i that exists inside a anon class is a clone
+//					System.out.println("I within anon class block " + i);
+//					return s1.toUpperCase() + s2.toUpperCase();
+//				}
+//			};
+		System.out.println("The AnotherClass class's name is " + getClass().getSimpleName());
+//		i++;
+//		System.out.println("i =  " + i);
+		return Main.doStringStuff(uc, "String1", "String2");
+
+//		System.out.println("The AnotherClass class's name is " + getClass().getSimpleName());
+//		return Main.doStringStuff(new UpperConcat() {
+//			@Override
+//			public String upperAndConcat(String s1, String s2) {
+//				System.out.println("The AnotherClass class's name is " + getClass().getSimpleName());
+//				return s1.toUpperCase() + s1.toUpperCase();
+//			}
+//		}, "String1", "String2");
+	}
+	
 }
