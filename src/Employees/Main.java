@@ -4,7 +4,10 @@ package Employees;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class Main {
 	public static void main(String[] args) {
@@ -53,10 +56,32 @@ public class Main {
 //		you set the predicate condition by using a lambda, where the method will use it as a test condition on an object which you will use to do your code
 		printEmployeesByAge(employees,"Employees over 30",employee ->employee.getAge() >30 );
 		printEmployeesByAge(employees,"\nEmployees under 30",employee ->employee.getAge() <=30 );
+		printEmployeesByAge(employees, "Employees under 25", new Predicate<Employee>() {
+			@Override
+			public boolean test(Employee employee) {
+				return employee.getAge() > 30;
+			}
+		});
+		IntPredicate greaterThan15 = i -> i > 15;
+		IntPredicate lessThan100 = i -> i < 100;
+//		predicates are basically boolean test conditions that you set
+//		you can chain them using and
+		System.out.println(greaterThan15.test(10));
+		int a = 110;
+		System.out.println(greaterThan15.and(lessThan100).test(a));
+		
+		Random random = new Random();
+		Supplier<Integer> randomSupplier = () -> random.nextInt(1000);
+		for(int i = 0; i < 10; i++){
+//			System.out.println(random.nextInt(1000));
+			System.out.println(randomSupplier.get());
+		}
+		
+		
 	}
 	
 	public static void printEmployeesByAge(List<Employee> employees, String ageText, Predicate<Employee> ageCondition) {
-		System.out.println("Employees over 30:");
+		System.out.println(ageText);
 		System.out.println("=====================");
 		for (Employee employee : employees) {
 			if (ageCondition.test(employee)) {
