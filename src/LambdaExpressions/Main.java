@@ -32,6 +32,29 @@ public class Main {
 		employees.add(jack);
 		employees.add(snow);
 
+		employees.forEach(employee -> {
+			System.out.println(employee.getName());
+			System.out.println(employee.getAge());
+		});
+		
+		for (Employee employee : employees) {
+			System.out.println(employee.getName());
+			System.out.println(employee.getAge());
+//			new Thread(()-> System.out.println(employee.getAge())).start();
+		}
+
+
+
+////		Employee employee;
+//		for(int i = 0; i < employees.size(); i++) {
+////			You cannot declare and change  a variable and then use them in a lambda, due to the value changing that the lambda cannot use.
+//			Employee employee;
+//			 employee = employees.get(i);
+//			System.out.println(employee.getName());
+//			new Thread(() -> System.out.println(employee.getAge())).start();
+//		}
+
+
 //		Collections.sort(employees, new Comparator<Employee>() {
 //			@Override
 //			public int compare(Employee employee1, Employee employee2) {
@@ -105,11 +128,12 @@ class AnotherClass {
 		int i = 0;
 		UpperConcat uc = (s1, s2) -> {
 			System.out.println("The lambda expression's class is " + getClass().getSimpleName());
+//			local variables used inside lambda must be declared final or effectively final, meaning that their value doesn't change
 			System.out.println("I within lambda " + i);
 			String result = s1.toUpperCase() + s2.toUpperCase();
 			return result;
 		};
-
+	
 //			UpperConcat uc = new UpperConcat() {
 //				@Override
 //				public String upperAndConcat(String s1, String s2) {
@@ -133,5 +157,21 @@ class AnotherClass {
 //			}
 //		}, "String1", "String2");
 	}
-	
+	public void printValue(){
+//		numbers hold a copy, so the value must not change because inside lambdas, there is no guarantee that the code will be run instantly
+//		it might wait for an event or be on a timer
+//		otherwise, by the time the variable is needed, it might have been removed as the method is no longer running,
+//		so inside the lambda, and inside anonymous methods, they have their own copy.
+		int number = 25;
+		Runnable r =  () -> {
+			try {
+				Thread.sleep(5000);
+				
+			}catch (InterruptedException e){
+				e.printStackTrace();
+			}
+			System.out.println("The value is " + number);
+		};
+		new Thread(r).start();
+	}
 }
