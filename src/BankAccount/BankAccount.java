@@ -24,6 +24,7 @@ public class BankAccount {
 //		balance -= amount;
 //	}
 	public void deposit(double amount) {
+		boolean status = false;
 //		this method is better when the code is less simple and only critical code need to be synchronised instead of the entre method
 //		this is to ensure best performance
 		try {
@@ -41,10 +42,12 @@ public class BankAccount {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		System.out.println("transaction status = " + status);
 		
 	}
 	
 	public void withdraw(double amount) {
+		boolean status = false;
 		try {
 			if (lock.tryLock(1000,TimeUnit.MILLISECONDS)){
 			try {
@@ -58,6 +61,7 @@ public class BankAccount {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		System.out.println("transaction status = " + status);
 	}
 	
 	public String getAccountNumber() {
