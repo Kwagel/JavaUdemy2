@@ -47,5 +47,40 @@ public class Main {
 		System.out.println("--------------------");
 //		peek is a intermediate method, so can be placed before a terminal output and still let the chain continue, as it takes and returns the same integer, but you can use methods references on it beforehand , or a lambda method
 		System.out.println(concatStream.distinct().peek(System.out::println).count());
+		
+		Employee john = new Employee("John Doe", 30);
+		Employee jane = new Employee("Jane Deer", 23);
+		Employee jack = new Employee("Jack Hill", 40);
+		Employee snow = new Employee("Snow White", 22);
+		
+		
+		Department hr = new Department("Human Resources");
+		hr.addEmployee(jane);
+		hr.addEmployee(jack);
+		hr.addEmployee(snow);
+		
+		Department accounting = new Department("Accounting");
+		accounting.addEmployee(john);
+		
+		
+		List<Department> departments = new ArrayList<>();
+		departments.add(hr);
+		departments.add(accounting);
+//		you must do getEmployees.stream as forEach only acts on streams as its a stream method
+		departments.stream().flatMap(department -> department.getEmployees().stream()).forEach(System.out::println);
+		
+//		List<String> sortedGNumbers = someBingoNumbers.stream().map(String::toUpperCase).filter(s -> s.startsWith("G")).sorted().collect(Collectors.toList());
+//		the collect (a,b,c) method, expects a supplier to create an object, an accumulator to add to the object created with the supplier, then finally a combiner, to add multiple
+		List<String> sortedGNumbers = someBingoNumbers.stream().map(String::toUpperCase).filter(s -> s.startsWith("G")).sorted().collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+		for (String number : sortedGNumbers) {
+			System.out.println(number);
+		}
+		
+		departments.stream().flatMap(department -> department.getEmployees().stream()).reduce((e1,e2) -> e1.getAge() < e2.getAge()? e1 : e2).ifPresent(System.out::println);
+		
+		Stream.of("ABC","AC","BAA","CCCC","XY", "ST").filter(s -> {
+			System.out.println(s);
+			return s.length() == 3;
+		}).count();
 	}
 }
