@@ -40,11 +40,9 @@ public class Challenge1 {
 		System.out.println(everySecondCharacter(lambdaFunction, "1234567890"));
 		
 		List<String> topNames2015 = Arrays.asList("Amelia", "Olivia", "emily", "Isla", "Ava", "oliver", "Jack", "Charlie", "harry", "Jacob");
-		Function<List<String>, List<String>> parseList = (list) -> {
-			return list.stream()
-					   .sorted()
-					   .collect(Collectors.toList());
-		};
+		Function<List<String>, List<String>> parseList = (list) -> list.stream()
+																   .sorted()
+																   .collect(Collectors.toList());
 		Function<List<String>, List<String>> firstLetterCapital = (s) -> {
 			List<String> upperCaseList = new ArrayList<>();
 			s.forEach(name -> upperCaseList.add(name.substring(0, 1)
