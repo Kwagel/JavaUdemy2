@@ -8,6 +8,16 @@ public class Main {
 		while(sb.length() <10 ) {
 			utils.addChar(sb, 'a');
 			System.out.println(sb);
+		
+		String str = "abcdefg";
+		String resul = utils.upperAndPrefix(utils.addSuffix(str));
+		
+		
+		
+		
+		
 		}
+		
+		
 	}
 }
