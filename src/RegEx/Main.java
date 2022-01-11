@@ -118,7 +118,7 @@ public class Main {
 //			to use the group, each group is indexed from 1, and you can have multiple groups in one regEx
 			System.out.println("Occurrence: " + groupMatcher.group(1));
 		}
-		
+
 //		String string2 = "abcab";
 //		String newPattern = "(a.*?b)";
 //		Pattern usePattern = Pattern.compile(newPattern);
@@ -131,11 +131,51 @@ public class Main {
 		String h2TextGroups = "(<h2>)(.+?)(</h2>)";
 		Pattern h2TextPattern = Pattern.compile(h2TextGroups);
 		Matcher h2TextMatcher = h2TextPattern.matcher(htmlTest);
-
+		
 		while (h2TextMatcher.find()) {
 //			to use the group, each group is indexed from 1, and you can have multiple groups in one regEx
 			System.out.println("Occurrence: " + h2TextMatcher.group(2));
 		}
+//		the AND is implicit so "ABC" is A & B & C
+//		for OR, using | between characters
+		System.out.println("harry".replaceAll("[H|h]arry", "Larry"));
+//		we have used one NOT before, [^abc] is !a | !b | !c
+		
+		String tvTest = "tstvtkt";
+//		for "t[^v]" it means is must be t followed by ANYTHING but not v, so there must be a following character
+//		the [] means there must be a character there
+
+//		String tNotRegExp = "t[^v]";
+//		"t(?1v)" is using look ahead, so we want t that isn't followed by v
+//		lookahead always starts with (?n)
+//		the ! doesn't consume a character, so it can be nothing after t and that also matches
+//		however, lookahead doesnt include the lookahead characters in the match
+		String tNotRegExp = "t(?!v)";
+		Pattern tNotVPattern = Pattern.compile(tNotRegExp);
+		Matcher tNotVMatcher = tNotVPattern.matcher(tvTest);
+		count++;
+		while (tNotVMatcher.find()) {
+			count++;
+			System.out.println("Occurrence " + count + " : " + tNotVMatcher.start() + " to " + tNotVMatcher.end());
+		}
+//		= in a lookahead means IS
+//		 t(?=v), look for all t's followed by v, but don't include v in the match
+//		(+44) 7700 900746
+		String number = "(+44) 7700 900746";
+		String numberRegex = "^([(][+][0-9]{2}[)][ ][0-9]{4}[ ][0-9]{6})$";
+		Pattern numberPattern = Pattern.compile(numberRegex);
+		Matcher numberMatcher = numberPattern.matcher(number);
+		
+		while (numberMatcher.find()){
+			System.out.println(numberMatcher.group(1));
+		}
+//		"^[\(]{1}[\+]{1}[\\d]{2}[\)]{1}[ ]{1}{\\d}{4}[ ]{1}{\\d}{6}"
+
+//		e? is 0 or more e
+//		()? 0 or more of that group
+	
+	
+	
 	}
 	
 }
