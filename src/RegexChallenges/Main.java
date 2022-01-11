@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		String challenge1 = "I want a bike.";
 		String challenge2 = "I want a ball.";
-		String stringRegex = "(^[\\D]{0,100}$)";
+		
 		System.out.println(challenge1.matches("^I want a b[\\w]{3}\\.$"));
 		System.out.println(challenge2.matches("^I want a b[\\w]{3}.$"));
 		
@@ -30,6 +30,40 @@ public class Main {
 		
 		String challenge7 = "abcd.135";
 		System.out.println(challenge7.matches("^[a-zA-Z]+.\\d+$"));
+		
+		
+		String challenge8 = "abc.123uvqz.7tzik.999";
+//		group the bit you want to output, and select that group, if you don't use boundary markers, it will keep searching the entire string
+		String takeNumRegex = "[a-zA-Z]+.(\\d+)";
+		Pattern takeNumPattern = Pattern.compile(takeNumRegex);
+		Matcher takeNumMatcher = takeNumPattern.matcher(challenge8);
+		
+		while (takeNumMatcher.find()) {
+			System.out.println(takeNumMatcher.group(1));
+		}
+		
+		String challenge9 = "abcd.123\tuvqz.7\ttzik.999\n";
+		Pattern chal9 = Pattern.compile("[a-zA-Z]+.(\\d+)\\s");
+		Matcher chal9Matcher = chal9.matcher(challenge9);
+		while (chal9Matcher.find()) {
+			System.out.println(chal9Matcher.group(1));
+		}
+		
+		String challenge10 = "abcd.135\tuvqz.7\ttzik.999\n";
+		Pattern chal10 = Pattern.compile("[a-zA-Z]+.(\\d+)\\s");
+		Matcher chal10Matcher = chal10.matcher(challenge10);
+		while (chal10Matcher.find()) {
+			System.out.println("Occurrences " + chal10Matcher.start(1) + " : " + (chal10Matcher.end(1) - 1));
+		}
+		
+		String challenge11 = "{0, 2}, {0, 5}, {1, 3}, {2, 4}";
+//		"\\{(\\d, \\d)}"
+//		. means anything + means atleast 1, ? makes it lazy to return the shortest match
+		Pattern c11Pattern = Pattern.compile("\\{(.+?)}");
+		Matcher c11Matcher = c11Pattern.matcher(challenge11);
+		while (c11Matcher.find()){
+			System.out.println(c11Matcher.group(1));
+		}
 		
 	}
 }
