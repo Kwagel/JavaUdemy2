@@ -65,5 +65,20 @@ public class Main {
 			System.out.println(c11Matcher.group(1));
 		}
 		
+		
+		String challenge12 = "11111";
+		Pattern c12Pattern = Pattern.compile("^\\d{5}$");
+		Matcher c12Matcher = c12Pattern.matcher(challenge12);
+		while (c12Matcher.find()){
+			System.out.println(c12Matcher.group());
+		}
+		
+		String challenge13 = "11111-1111";
+		Pattern c13Pattern = Pattern.compile("^\\d{5}(-\\d{4})?$");
+		
+		Matcher c13Matcher = c13Pattern.matcher(challenge13);
+		System.out.println(c13Matcher.matches());
+		 c13Matcher = c13Pattern.matcher(challenge12);
+		System.out.println(c13Matcher.matches());
 	}
 }
