@@ -41,7 +41,8 @@ public class Datasource {
 	public static final String QUERY_ALBUMS_BY_ARTIST_START = "SELECT " + TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME +
 			" " +
 			"FROM " + TABLE_ALBUMS + " INNER JOIN " + TABLE_ARTISTS + " ON " + TABLE_ALBUMS + "." + COLUMN_ALBUM_ARTIST +
-			" = " + TABLE_ARTISTS + "." + COLUMN_ARTIST_ID + " WHERE " + TABLE_ARTISTS + "." + COLUMN_ARTIST_NAME + " " +
+			" = " + TABLE_ARTISTS + "." + COLUMN_ARTIST_ID + " WHERE " + TABLE_ARTISTS + "." + COLUMN_ARTIST_NAME +
+			" " +
 			"= \"";
 	
 	public static final String QUERY_ALBUMS_BY_ARTIST_SORT =
@@ -49,8 +50,20 @@ public class Datasource {
 	
 	public static final String QUERY_ARTISTS_START =
 			" SELECT * FROM " + TABLE_ARTISTS;
+	
 	public static final String QUERY_ARTISTS_SORT =
 			" ORDER BY " + COLUMN_ARTIST_NAME + " COLLATE NOCASE ";
+	
+	public static final String QUERY_ARTIST_FOR_SONG_START = "SELECT " + TABLE_ARTISTS + "." + COLUMN_ARTIST_NAME +
+			", " + TABLE_SONGS + "." + COLUMN_SONGS_TITLE + ", " + TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME + " FROM " +
+			TABLE_ARTISTS + " INNER JOIN " + TABLE_ALBUMS + " ON " + TABLE_ALBUMS + "." + COLUMN_ALBUM_ARTIST + " = " +
+			TABLE_ARTISTS + "." + COLUMN_ARTIST_ID + " INNER JOIN " + TABLE_SONGS + " ON " + TABLE_SONGS + "." +
+			COLUMN_SONGS_ALBUM + " = " + TABLE_ALBUMS + "." + COLUMN_ALBUM_ID + " WHERE " + TABLE_SONGS + "." +
+			COLUMN_SONGS_TITLE + " = \"";
+	
+	
+	public static final String QUERY_ARTIST_FOR_SONG_SORT = " ORDER BY " + TABLE_ARTISTS + "." + COLUMN_ARTIST_NAME +
+			", " + TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME + "COLLATE NOCASE ";
 	
 	private Connection conn;
 	
