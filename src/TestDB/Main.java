@@ -5,7 +5,7 @@ import java.sql.*;
 public class Main {
 	public static final String DB_NAME = "testjava.db";
 	public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\kenneth.a" +
-			".lau\\IdeaProjects\\JavaLearning\\JavaUdemy2\\src\\TestDB\\testjava.db";
+			".lau\\IdeaProjects\\JavaLearning\\JavaUdemy2\\src\\TestDB\\"+ DB_NAME;
 	
 	public static final String TABLE_CONTACTS = "contacts";
 	public static final String COLUMN_NAME = "name";
