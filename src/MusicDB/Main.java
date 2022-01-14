@@ -62,5 +62,7 @@ public class Main {
 		}
 		
 		datasource.close();
+		
+//		SELECT name, album, track FROM artist_list WHERE title = ? OR artist = ?
 	}
 }
