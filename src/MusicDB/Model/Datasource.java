@@ -83,15 +83,40 @@ public class Datasource {
 			"SELECT " + COLUMN_ALBUM_NAME + ", " + COLUMN_SONGS_ALBUM + ", " + COLUMN_SONGS_TRACK + " FROM " +
 			TABLE_ARTIST_SONG_VIEW + " WHERE " + COLUMN_SONGS_TITLE + " = ?";
 	
+	public static final String INSERT_ARTISTS =
+			"INSERT INTO " + TABLE_ARTISTS + '(' + COLUMN_ARTIST_NAME + ") VALUES(?)";
+	public static final String INSERT_ALBUMS =
+			"INSERT INTO " + TABLE_ALBUMS + '(' + COLUMN_ALBUM_NAME + ", " + COLUMN_ALBUM_ARTIST + ") VALUES(?, ?)";
+	public static final String INSERT_SONGS =
+			"INSERT INTO " + TABLE_SONGS + '(' + COLUMN_SONGS_TRACK + ", " + COLUMN_SONGS_TITLE + ", " +
+			COLUMN_SONGS_ALBUM + ") VALUES(?, ?, ?)";
+	
+	public static final String QUERY_ARTIST =
+			"SELECT " + COLUMN_ARTIST_ID + " FROM " + TABLE_ARTISTS + " WHERE " + COLUMN_ARTIST_NAME + " = ?";
+	public static final String QUERY_ALBUM =
+			"SELECT " + COLUMN_ALBUM_ID + " FROM " + TABLE_ALBUMS + " WHERE " + COLUMN_ALBUM_NAME + " = ?";
+	
 	private Connection conn;
-//	using a prepared statement to prevent SQL injection
+	//	using a prepared statement to prevent SQL injection
 	private PreparedStatement querySongInfoView;
+	private PreparedStatement insertIntoArtists;
+	private PreparedStatement insertIntoAlbums;
+	private PreparedStatement insertIntoSongs;
+	
+	private PreparedStatement queryArtist;
+	private PreparedStatement queryAlbum;
 	
 	public boolean open() {
 		try {
 			conn = DriverManager.getConnection(CONNECTION_STRING);
-//			set the prepared statement like a normal statement except with prepareStatement instead of createStatement()
+//			set the prepared statement like a normal statement except with prepareStatement instead of
+//			createStatement()
 			querySongInfoView = conn.prepareStatement(QUERY_VIEW_SONG_INFO_PREP);
+			insertIntoArtists = conn.prepareStatement(INSERT_ARTISTS, Statement.RETURN_GENERATED_KEYS);
+			insertIntoAlbums = conn.prepareStatement(INSERT_ALBUMS, Statement.RETURN_GENERATED_KEYS);
+			insertIntoSongs = conn.prepareStatement(INSERT_SONGS);
+			queryArtist = conn.prepareStatement(QUERY_ARTIST);
+			queryAlbum = conn.prepareStatement(QUERY_ALBUM);
 			return true;
 			
 		} catch (SQLException e) {
@@ -102,8 +127,23 @@ public class Datasource {
 	
 	public void close() {
 		try {
-			if (querySongInfoView != null){
+			if (querySongInfoView != null) {
 				querySongInfoView.close();
+			}
+			if (insertIntoArtists != null ){
+				insertIntoArtists.close();
+			}
+			if (insertIntoAlbums != null ){
+				insertIntoAlbums.close();
+			}
+			if (insertIntoSongs != null ){
+				insertIntoSongs.close();
+			}
+			if (queryArtist != null ){
+				queryArtist.close();
+			}
+			if (queryAlbum != null ){
+				queryAlbum.close();
 			}
 			if (conn != null) {
 				conn.close();
