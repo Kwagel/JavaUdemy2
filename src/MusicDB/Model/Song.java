@@ -1,6 +1,6 @@
 package MusicDB.Model;
 
-public class Song {
+ class Song {
 	private int id;
 	private int track;
 	private String name;

@@ -1,12 +1,12 @@
 package MusicDB.Model;
 
-public class SongArtist {
+ class SongArtist {
 	private String artistName;
 	private  String albumName;
 	private int track;
 	
 	
-	public String getArtistName() {
+	 String getArtistName() {
 		return artistName;
 	}
 	

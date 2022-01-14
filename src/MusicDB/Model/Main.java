@@ -1,11 +1,6 @@
-package MusicDB;
-
-import MusicDB.Model.Artist;
-import MusicDB.Model.Datasource;
-import MusicDB.Model.SongArtist;
+package MusicDB.Model;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
@@ -46,20 +41,22 @@ public class Main {
 		
 		datasource.createViewForSongArtists();
 		
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("enter a song title: ");
-		String title = scanner.nextLine();
+//		Scanner scanner = new Scanner(System.in);
+//		System.out.println("enter a song title: ");
+//		String title = scanner.nextLine();
+//
+//		List<SongArtist> songArtist = datasource.querySongInfoView(title);
+//		if (songArtist.isEmpty()) {
+//			System.out.println("Couldn't find the artist for the song");
+//			return;
+//		}
+//		for (SongArtist artist : songArtist) {
+//			System.out.println(
+//					"FROM VIEW - Artist name = " + artist.getArtistName() + ", Album name = " + artist.getAlbumName() +
+//					", Track number= " + artist.getTrack());
+//		}
 		
-		List<SongArtist> songArtist = datasource.querySongInfoView(title);
-		if (songArtist.isEmpty()) {
-			System.out.println("Couldn't find the artist for the song");
-			return;
-		}
-		for (SongArtist artist : songArtist) {
-			System.out.println(
-					"FROM VIEW - Artist name = " + artist.getArtistName() + ", Album name = " + artist.getAlbumName() +
-					", Track number= " + artist.getTrack());
-		}
+		datasource.insertSong("Bird Dog", "Everly Brothers" , "All-Time Greatest Hits", 7);
 		
 		datasource.close();
 		
