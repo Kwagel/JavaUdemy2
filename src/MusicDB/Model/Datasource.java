@@ -79,12 +79,19 @@ public class Datasource {
 			"SELECT " + COLUMN_ALBUM_NAME + ", " + COLUMN_SONGS_ALBUM + ", " + COLUMN_SONGS_TRACK + " FROM " +
 			TABLE_ARTIST_SONG_VIEW + " WHERE " + COLUMN_SONGS_TITLE + " = \"";
 	
+	public static final String QUERY_VIEW_SONG_INFO_PREP =
+			"SELECT " + COLUMN_ALBUM_NAME + ", " + COLUMN_SONGS_ALBUM + ", " + COLUMN_SONGS_TRACK + " FROM " +
+			TABLE_ARTIST_SONG_VIEW + " WHERE " + COLUMN_SONGS_TITLE + " = ?";
 	
 	private Connection conn;
+//	using a prepared statement to prevent SQL injection
+	private PreparedStatement querySongInfoView;
 	
 	public boolean open() {
 		try {
 			conn = DriverManager.getConnection(CONNECTION_STRING);
+//			set the prepared statement like a normal statement except with prepareStatement instead of createStatement()
+			querySongInfoView = conn.prepareStatement(QUERY_VIEW_SONG_INFO_PREP);
 			return true;
 			
 		} catch (SQLException e) {
@@ -95,6 +102,9 @@ public class Datasource {
 	
 	public void close() {
 		try {
+			if (querySongInfoView != null){
+				querySongInfoView.close();
+			}
 			if (conn != null) {
 				conn.close();
 			}
@@ -237,30 +247,30 @@ public class Datasource {
 			return false;
 		}
 	}
-
-public List<SongArtist> querySongInfoView(String title){
-		StringBuilder sb = new StringBuilder(QUERY_VIEW_SONG_INFO);
-		sb.append(title);
-		sb.append("\"");
 	
-	System.out.println(sb.toString());
-	
-	try(Statement statement = conn.createStatement();
-	ResultSet results = statement.executeQuery(sb.toString())){
-		List<SongArtist> songArtists = new ArrayList<>();
-		while(results.next()){
-			SongArtist artist = new SongArtist();
-			artist.setArtistName(results.getString(1));
-			artist.setAlbumName(results.getString(2));
-			artist.setTrack(results.getInt(3));
-			songArtists.add(artist);
+	public List<SongArtist> querySongInfoView(String title) {
+		
+		try {
+//			by using ? as a placeholder, sql has a setString method on prepared statements to prevent sql injection.
+//			for setString, first you define the placeholder (indexed from 1)  and then the think to replace it with.
+//			this is for if you have multiple placeholders
+			querySongInfoView.setString(1, title);
+			ResultSet results = querySongInfoView.executeQuery();
+			List<SongArtist> songArtists = new ArrayList<>();
+			while (results.next()) {
+				SongArtist artist = new SongArtist();
+				artist.setArtistName(results.getString(1));
+				artist.setAlbumName(results.getString(2));
+				artist.setTrack(results.getInt(3));
+				songArtists.add(artist);
+			}
+			return songArtists;
+		} catch (SQLException e) {
+			System.out.println("Error printing song info " + e.getMessage());
+			e.printStackTrace();
+			return null;
 		}
-		return songArtists;
-	}catch(SQLException e){
-		System.out.println("Error printing song info " + e.getMessage());
-		e.printStackTrace();
-		return null;
+		
 	}
-}
 }
 
