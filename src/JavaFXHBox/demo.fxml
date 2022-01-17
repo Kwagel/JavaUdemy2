@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<!-- hgap, vgap and GridPaneLinesVisible don't exists for HBox-->
+<!-- you can add css by using style within the HBox parameters-->
+<!-- spacing can be defined between buttons and the edge of the screen using -->
+<HBox fx:controller="JavaFXHBox.Controller"
+      xmlns:fx="http://javafx.com/fxml" alignment="bottom_right"
+      style="-fx-border-color: red; -fx-border-width: 3; -fx-border-style: dashed;" spacing="10">
+    <padding>
+        <Insets bottom="10" right="10"/>
+    </padding>
+    <Button text="Okay"/>
+    <Button text="Cancel"/>
+    <Button text="Help"/>
+
+</HBox>

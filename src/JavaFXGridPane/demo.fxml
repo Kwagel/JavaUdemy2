@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Button?>
+<!-- hgap and vgap defines the gaps between the rows and columns-->
+<!-- the alignment determines where the objects are drawn too-->
+<!-- it will always try to stay in the same alignment, e.g. will start centred no matter the size of the application-->
+<!-- setting gridlinesVisible to true allows you too see why the buttons are arranged like they are-->
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.geometry.Insets?>
+<GridPane fx:controller="JavaFXGridPane.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="top_center" hgap="10" vgap="10"
+          gridLinesVisible="true">
+    <!--    define a padding, add an inset on a specific direction with defined size-->
+    <padding>
+        <Insets top="10"/>
+    </padding>
+    <!--    <columnConstraints>-->
+    <!--        &lt;!&ndash;        each column constraint applies to the incrementing column e.g. first one defines only first column etc.&ndash;&gt;-->
+    <!--        &lt;!&ndash;        instead of accommodating just for the text length in buttons, this will change the definition to the % size of the application&ndash;&gt;-->
+    <!--        &lt;!&ndash;        fxml understands that its out of 100%, so it will readjust them proportionally if you go over, so 50, 50 ,50 goes to 33,33,33&ndash;&gt;-->
+    <!--        <ColumnConstraints percentWidth="50"/>-->
+    <!--        <ColumnConstraints percentWidth="50"/>-->
+    <!--    </columnConstraints>-->
+    <!--    <rowConstraints>-->
+    <!--        <RowConstraints percentHeight="50"/>-->
+    <!--        <RowConstraints percentHeight="50"/>-->
+    <!--        <RowConstraints percentHeight="50"/>-->
+    <!--    </rowConstraints>-->
+    <!--    the default position is row0, column0, which needs to be defined in grid panes so objects do not overlap-->
+    <Button text="Button One" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <Button text="Button Two" GridPane.rowIndex="0" GridPane.columnIndex="1"
+            GridPane.halignment="RIGHT"/>
+    <!--    Each column and row is as wide or tall as the widest and tallest button -->
+    <Button text="Button Three" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+<!--    You can make a button span multiple columns using gridpane.columnspan-->
+    <Button text="Really Long Button Four" GridPane.rowIndex="3" GridPane.columnIndex="0"
+            GridPane.columnSpan="2"/>
+    <Button text="Button Five" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+</GridPane>
