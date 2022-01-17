@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- hgap, vgap and GridPaneLinesVisible don't exists for HBox-->
+<!-- you can add css by using style within the HBox parameters-->
+<!-- spacing can be defined between buttons and the edge of the screen using -->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.FlowPane?>
+<!--The floatPane will automatically wrap any child elements if it cannot fit in the app, you can do this vertically or horizontally-->
+<!--The Vbox buttons will be cut off if they cannot fit-->
+<FlowPane fx:controller="JavaFXFlowPane.Controller" xmlns:fx="http://javafx.com/fxml" orientation="HORIZONTAL" hgap="10"
+          vgap="10">
+    <padding>
+        <Insets right="10" bottom="10"/>
+    </padding>
+    <Button text="Button One"/>
+
+    <Button text="Button Two"/>
+    <Button text="Button Three"/>
+    <Button text="Button Four"/>
+    <Button text="Button Five"/>
+    <Button text="Button Six"/>
+    <Button text="Button Seven"/>
+    <Button text="Button Eight"/>
+    <Button text="Button Nine"/>
+    <Button text="Button Ten"/>
+
+</FlowPane>

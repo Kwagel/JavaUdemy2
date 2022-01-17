@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<GridPane xmlns:fx="http://javafx.com/fxml"
+          fx:controller="JavaFXAppControl.Controller" vgap="10" hgap="10" alignment="CENTER">
+    <Button GridPane.rowIndex="0" GridPane.columnIndex="0" text="Click me!">
+        <graphic>
+            <ImageView>
+                <Image url="light-bulb.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label text="This is a label" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <graphic>
+            <ImageView>
+                <Image url="light-bulb.png"/>
+            </ImageView>
+        </graphic>
+    </Label>
+
+</GridPane>

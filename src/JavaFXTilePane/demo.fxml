@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- TilePanes are similar to FlowPanes, but each element is automatically centered nd have gaps on the left and right of them-->
+<!-- Also, each element has the size of the largest button-->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.TilePane?>
+<TilePane fx:controller="JavaFXTilePane.Controller" xmlns:fx="http://javafx.com/fxml" hgap="10"
+          vgap="10">
+    <padding>
+        <Insets right="10" bottom="10"/>
+    </padding>
+    <Button text="Button One"/>
+
+    <Button text="Button Two"/>
+    <Button text="Button Three"/>
+    <Button text="Button Four"/>
+    <Button text="Button Five"/>
+    <Button text="Button Six"/>
+    <Button text="Button Seven"/>
+    <Button text="Button Eight"/>
+    <Button text="Button Nine"/>
+    <Button text="Button Ten"/>
+
+</TilePane>

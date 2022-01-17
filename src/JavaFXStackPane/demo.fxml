@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--StackPane, as the name suggests, stacks all the elements on top of each other with the elements stacked in load order, top to bottom-->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane fx:controller="JavaFXStackPane.Controller" xmlns:fx="http://javafx.com/fxml">
+
+    <Label text="The label Text" style="-fx-background-color: green"/>
+    <Button text="Button One" style="-fx-background-color: blue"/>
+    <Label text="Second Label Text" style="-fx-background-color: red"/>
+
+</StackPane>
