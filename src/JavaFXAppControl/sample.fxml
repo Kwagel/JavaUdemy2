@@ -5,21 +5,62 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Font?>
 <GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="JavaFXAppControl.Controller" vgap="10" hgap="10" alignment="CENTER">
     <Button GridPane.rowIndex="0" GridPane.columnIndex="0" text="Click me!">
         <graphic>
             <ImageView>
-                <Image url="light-bulb.png"/>
+                <!--                <Image url="light-bulb.png"/>-->
             </ImageView>
         </graphic>
     </Button>
-    <Label text="This is a label" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="This is a label"
+           textFill="blue" wrapText="true">
+        <font>
+            <Font name="Ariel italic" size="12"/>
+        </font>
         <graphic>
             <ImageView>
-                <Image url="light-bulb.png"/>
+                <!--                <Image url="light-bulb.png"/>-->
             </ImageView>
         </graphic>
     </Label>
+    <!--    fx:define allows you to add functionality that isn't inherited in the inheritance chain,-->
+    <!--    Here we define ToggleGroup with an ID as for a toggle group you need to have members of a group to know which to toggle on and off-->
+    <fx:define>
+        <ToggleGroup fx:id="colourToggleGroup"/>
+    </fx:define>
+    <!-- Radio buttons should be linked, with only one option on at any one instance, but toggle group isnt available in the class hierarchy-->
+    <RadioButton GridPane.rowIndex="0" GridPane.columnIndex="2" text="Red" toggleGroup="$colourToggleGroup"/>
+    <!--    To set default selected radio button, setting selected = true -->
+    <RadioButton GridPane.rowIndex="0" GridPane.columnIndex="3" text="Blue" toggleGroup="$colourToggleGroup"
+                 selected="true"/>
+    <RadioButton GridPane.rowIndex="0" GridPane.columnIndex="4" text="Green" toggleGroup="$colourToggleGroup"/>
+    <!--    Check box is the box with a tick on it
+    -->
+    <!--    You can align and group elements by putting them in different layouts within the main layout-->
+    <VBox GridPane.columnIndex="0" GridPane.rowIndex="5">
+        <CheckBox text="Dog"/>
+        <CheckBox text="Cat"/>
+        <CheckBox text="Bird"/>
+
+        <CheckBox text="Subscribe to our newsletter" GridPane.columnIndex="0" GridPane.rowIndex="5"
+                  indeterminate="true"/>
+    </VBox>
+    <!--    Button that stays pressed or not pressed-->
+    <!--    You can align them as you would using the grid pain index but that makes using it more difficult as grouped elements cannot be added to together-->
+    <!--    It's also just syntactically easier, as you don't have to write out each row and column index-->
+
+    <fx:define>
+        <ToggleGroup fx:id="numberToggleGroup"/>
+    </fx:define>
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="6">
+        <ToggleButton text="One" toggleGroup="$numberToggleGroup"/>
+        <ToggleButton text="Two" toggleGroup="$numberToggleGroup"/>
+        <ToggleButton text="Three" toggleGroup="$numberToggleGroup"/>
+    </HBox>
+    <ToggleButton text="Toggle Me" GridPane.rowIndex="0" GridPane.columnIndex="6"/>
+    <ToggleButton text="Toggle Me" GridPane.rowIndex="1" GridPane.columnIndex="6"/>
 
 </GridPane>
