@@ -1,25 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
 <GridPane xmlns:fx="http://javafx.com/fxml"
-          fx:controller="JavaFXAppControl.Controller" vgap="10" hgap="10" alignment="CENTER">
+          fx:controller="JavaFXAppControl.Controller" vgap="10" hgap="10" alignment="CENTER" gridLinesVisible="true">
     <Button GridPane.rowIndex="0" GridPane.columnIndex="0" text="Click me!">
         <graphic>
             <ImageView>
-                <Image url="light-bulb.png"/>
+                <!--                <Image url="light-bulb.png"/>-->
             </ImageView>
         </graphic>
     </Button>
-    <Label text="This is a label" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <Label GridPane.rowIndex="0" GridPane.columnIndex="1" text="This is a label"
+           textFill="blue" wrapText="true">
+        <font>
+            <Font name="Ariel italic" size="12"/>
+        </font>
         <graphic>
             <ImageView>
-                <Image url="light-bulb.png"/>
+                <!--                <Image url="light-bulb.png"/>-->
             </ImageView>
         </graphic>
     </Label>
+    <!--    fx:define allows you to add functionality that isn't inherited in the inheritance chain,-->
+    <!--    Here we define ToggleGroup with an ID as for a toggle group you need to have members of a group to know which to toggle on and off-->
+    <fx:define>
+        <ToggleGroup fx:id="colourToggleGroup"/>
+    </fx:define>
+    <!-- Radio buttons should be linked, with only one option on at any one instance, but toggle group isnt available in the class hierarchy-->
 
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="2">
+
+        <RadioButton text="Red" toggleGroup="$colourToggleGroup"/>
+        <RadioButton text="Blue" toggleGroup="$colourToggleGroup" selected="true"/>
+        <RadioButton text="Green" toggleGroup="$colourToggleGroup"/>
+    </VBox>
+
+    <!--    This takes a long time to write, it is quicker to set it into a Vbox -->
+    <!--    <RadioButton GridPane.rowIndex="0" GridPane.columnIndex="2" text="Red" toggleGroup="$colourToggleGroup"/>-->
+    <!--    &lt;!&ndash;    To set default selected radio button, setting selected = true &ndash;&gt;-->
+    <!--    <RadioButton GridPane.rowIndex="0" GridPane.columnIndex="3" text="Blue" toggleGroup="$colourToggleGroup"-->
+    <!--                 selected="true"/>-->
+    <!--    <RadioButton GridPane.rowIndex="0" GridPane.columnIndex="4" text="Green" toggleGroup="$colourToggleGroup"/>-->
+
+
+    <!--    Check box is the box with a tick on it
+    -->
+    <!--    You can align and group elements by putting them in different layouts within the main layout-->
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="3">
+        <CheckBox text="Dog"/>
+        <CheckBox text="Cat"/>
+        <CheckBox text="Bird"/>
+    </VBox>
+    <!--    Button that stays pressed or not pressed-->
+    <!--    You can align them as you would using the grid pain index but that makes using it more difficult as grouped elements cannot be added to together-->
+    <!--    It's also just syntactically easier, as you don't have to write out each row and column index-->
+
+    <fx:define>
+        <ToggleGroup fx:id="numberToggleGroup"/>
+    </fx:define>
+    <HBox GridPane.rowIndex="0" GridPane.columnIndex="4">
+        <ToggleButton text="One" toggleGroup="$numberToggleGroup"/>
+        <ToggleButton text="Two" toggleGroup="$numberToggleGroup"/>
+        <ToggleButton text="Three" toggleGroup="$numberToggleGroup"/>
+    </HBox>
+    <!-- A text box that you can type in is a text field-->
+    <TextField GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <!--    There is also a password field which hides any character you input into it-->
+    <PasswordField GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <!--    Using a combo-box requires an import of an Observable Array List Collection by calling fx:factory-->
+    <!--    A combo box is a drop-down list of options where one can be selected e.g. gender:male, female, other-->
+    <!--    You can make the drop-down options editable but there are few use-cases-->
+    <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.columnSpan="2" >
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <!--                To actually display the array list, you populate the Collection ArrayList with Strings with fx:values -->
+                <!--                if the options are long enough that the combo box cannot accommodate the string, you can fix this using column span-->
+                <String fx:value="This is Option 1"/>
+                <String fx:value="This is Option 2"/>
+                <String fx:value="This is Option 3"/>
+                <String fx:value="This is Option 4"/>
+                <String fx:value="This is Option 5"/>
+            </FXCollections>
+        </items>
+        <!--        You can set the default value by opening values with an identical string inside it-->
+        <value>
+            <String fx:value="This is Option 4"/>
+        </value>
+    </ComboBox>
+
+<!--    choice box has a tick next to the selected option, and has a roulette style menu that has the current choice centered-->
+<!--    choice box more suitable for a smaller amount of items while a combo box can handle a larger amount of items -->
+<!--    Might be better to just stick with Combo box as it can also handle small amounts of items-->
+    <ChoiceBox GridPane.rowIndex="1" GridPane.columnIndex="4">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="cb 1"/>
+                <String fx:value="cb 2"/>
+                <String fx:value="cb 3"/>
+                <String fx:value="cb 4"/>
+                <String fx:value="cb 5"/>
+            </FXCollections>
+        </items>
+    </ChoiceBox>
 </GridPane>
+
+
+
