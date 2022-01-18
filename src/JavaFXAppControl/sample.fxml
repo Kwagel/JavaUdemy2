@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 <GridPane xmlns:fx="http://javafx.com/fxml"
-          fx:controller="JavaFXAppControl.Controller" vgap="10" hgap="10" alignment="CENTER" gridLinesVisible="true">
+          fx:controller="JavaFXAppControl.Controller" vgap="10" hgap="10" alignment="CENTER">
     <Button GridPane.rowIndex="0" GridPane.columnIndex="0" text="Click me!">
         <graphic>
             <ImageView>
@@ -18,8 +18,7 @@
         </graphic>
     </Button>
 
-    <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="This is a label"
-           textFill="blue" wrapText="true">
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="This is a label" textFill="blue" wrapText="true">
         <font>
             <Font name="Arial italic" size="12"/>
         </font>
@@ -114,6 +113,17 @@
             </FXCollections>
         </items>
     </ChoiceBox>
+    <!-- Slider, default value is 0-100, can be change with min and max. Normally you want to give it a long columnSpan because its pretty big-->
+    <!--    lack of precision can be fixed using various tick modifications, show labels, marks, and snap to ticks, swell as changing minor tick count-->
+    <Slider GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="4" showTickLabels="true"
+            minorTickCount="4" showTickMarks="true" snapToTicks="true"
+    />
+    <!-- the spinner is an input box where you can change the value using up/down buttons or the value can be directly edited using editable=true-->
+    <Spinner GridPane.rowIndex="2" GridPane.columnIndex="4" min="0" max="100" editable="true"/>
+
+    <ColorPicker GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+
+    <DatePicker GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 </GridPane>
 
 
