@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.lang.String?>
+<?import javafx.scene.text.Font?>
+
 <GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="JavaFXAppControl.Controller" vgap="10" hgap="10" alignment="CENTER" gridLinesVisible="true">
     <Button GridPane.rowIndex="0" GridPane.columnIndex="0" text="Click me!">
@@ -15,10 +17,11 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label GridPane.rowIndex="0" GridPane.columnIndex="1" text="This is a label"
+
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="This is a label"
            textFill="blue" wrapText="true">
         <font>
-            <Font name="Ariel italic" size="12"/>
+            <Font name="Arial italic" size="12"/>
         </font>
         <graphic>
             <ImageView>
@@ -32,6 +35,10 @@
         <ToggleGroup fx:id="colourToggleGroup"/>
     </fx:define>
     <!-- Radio buttons should be linked, with only one option on at any one instance, but toggle group isnt available in the class hierarchy-->
+
+    <!--    Button that stays pressed or not pressed-->
+    <!--    You can align them as you would using the grid pain index but that makes using it more difficult as grouped elements cannot be added to together-->
+    <!--    It's also just syntactically easier, as you don't have to write out each row and column index-->
 
     <VBox GridPane.rowIndex="0" GridPane.columnIndex="2">
 
@@ -75,7 +82,7 @@
     <!--    Using a combo-box requires an import of an Observable Array List Collection by calling fx:factory-->
     <!--    A combo box is a drop-down list of options where one can be selected e.g. gender:male, female, other-->
     <!--    You can make the drop-down options editable but there are few use-cases-->
-    <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.columnSpan="2" >
+    <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.columnSpan="2">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <!--                To actually display the array list, you populate the Collection ArrayList with Strings with fx:values -->
@@ -93,9 +100,9 @@
         </value>
     </ComboBox>
 
-<!--    choice box has a tick next to the selected option, and has a roulette style menu that has the current choice centered-->
-<!--    choice box more suitable for a smaller amount of items while a combo box can handle a larger amount of items -->
-<!--    Might be better to just stick with Combo box as it can also handle small amounts of items-->
+    <!--    choice box has a tick next to the selected option, and has a roulette style menu that has the current choice centered-->
+    <!--    choice box more suitable for a smaller amount of items while a combo box can handle a larger amount of items -->
+    <!--    Might be better to just stick with Combo box as it can also handle small amounts of items-->
     <ChoiceBox GridPane.rowIndex="1" GridPane.columnIndex="4">
         <items>
             <FXCollections fx:factory="observableArrayList">
