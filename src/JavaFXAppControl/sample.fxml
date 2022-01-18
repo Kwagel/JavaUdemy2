@@ -124,6 +124,25 @@
     <ColorPicker GridPane.rowIndex="3" GridPane.columnIndex="0"/>
 
     <DatePicker GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <!--    TitledPane is a control not a layout-->
+    <!--    When you click on a titledPane, it will open up any labels inside-->
+    <!--    You can make it act like an accordion, so only one pane's information can be displayed at once, using a panes tag with the titled-panes inside-->
+<!--    to have a default pane that starts expanded, set a fx:id to the relevant title pane and use expandedPane calling the id with $-->
+    <Accordion GridPane.rowIndex="3" GridPane.columnIndex="2" GridPane.columnSpan="2" expandedPane="$tp3">
+        <panes>
+            <TitledPane text="Titled Pane">
+                <Label text="Label in titled pane"/>
+            </TitledPane>
+            <TitledPane text="Titled Pane2">
+                <Label text="Label in titled pane2"/>
+            </TitledPane>
+            <TitledPane fx:id="tp3" text="Titled Pane3">
+                <Label text="Label in titled pane3"/>
+            </TitledPane>
+        </panes>
+
+    </Accordion>
 </GridPane>
 
 
