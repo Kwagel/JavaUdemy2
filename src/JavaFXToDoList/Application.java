@@ -5,7 +5,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
- public class Application extends javafx.application.Application {
+import java.io.IOException;
+
+public class Application extends javafx.application.Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader.load(getClass().getResource("demo.fxml"));
@@ -16,5 +18,23 @@ import javafx.stage.Stage;
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	 @Override
+	 public void stop() throws Exception {
+		try{
+			TodoData.getInstance().storeTodoItems();
+		}catch (IOException e){
+			System.out.println(e.getMessage());
+		}
+	 }
+
+	@Override
+	public void init() throws Exception {
+		try{
+			TodoData.getInstance().loadTodoItems();
+		}catch (IOException e){
+			System.out.println(e.getMessage());
+		}
 	}
 }

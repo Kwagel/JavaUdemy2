@@ -31,11 +31,11 @@ public class TodoData {
         return toDoItems;
     }
 
-    public void setToDoItems(List<ToDoItem> toDoItems) {
-        this.toDoItems = toDoItems;
-    }
+//    public void setToDoItems(List<ToDoItem> toDoItems) {
+//        this.toDoItems = toDoItems;
+//    }
 
-    public void loadTodoITems() throws IOException {
+    public void loadTodoItems() throws IOException {
         toDoItems = FXCollections.observableArrayList();
         Path path = Paths.get(filename);
 
@@ -60,7 +60,7 @@ public class TodoData {
         Path path = Paths.get(filename);
         try (BufferedWriter bw = Files.newBufferedWriter(path)) {
             for (ToDoItem item : toDoItems) {
-                bw.write(String.format("%s\t%s\\t%s\\t", item.getShortDescription(), item.getDetails(),
+                bw.write(String.format("%s\t%s\t%s", item.getShortDescription(), item.getDetails(),
                         item.getDeadline().format(formatter)));
                 bw.newLine();
             }
