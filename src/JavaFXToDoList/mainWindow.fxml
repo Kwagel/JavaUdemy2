@@ -29,8 +29,7 @@
     <center>
         <VBox style="-fx-background-color: white">
             <!--VBox.vgrow means that specific control will always take all the area that other controls in the vbox don't need after.-->
-            <TextArea fx:id="itemDetailsTextArea" VBox.vgrow="ALWAYS"/>
-
+            <TextArea fx:id="itemDetailsTextArea" VBox.vgrow="ALWAYS" wrapText="true"/>
             <HBox>
                 <Label text="Due: " style="-fx-background-color: white">
                     <font>

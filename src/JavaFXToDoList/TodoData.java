@@ -1,6 +1,7 @@
 package JavaFXToDoList;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,13 +11,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class TodoData {
     private static final TodoData instance = new TodoData();
     private static final String filename = "TodoListItems.txt";
     private final DateTimeFormatter formatter;
-    private List<TodoItem> todoItems;
+    private ObservableList<TodoItem> todoItems;
 
     private TodoData() {
         formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
@@ -26,7 +26,7 @@ public class TodoData {
         return instance;
     }
 
-    public List<TodoItem> getToDoItems() {
+    public ObservableList<TodoItem> getToDoItems() {
         return todoItems;
     }
     public void addTodoItem(TodoItem newItem) {
@@ -68,5 +68,7 @@ public class TodoData {
     }
 
 
-
+    public void deleteTodoItem(TodoItem item) {
+        todoItems.remove(item);
+    }
 }
