@@ -1,9 +1,13 @@
 package JavaFXToDoList;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
@@ -11,6 +15,7 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Optional;
 
 public class Controller {
@@ -18,15 +23,17 @@ public class Controller {
     public TextArea itemDetailsTextArea;
     @FXML
     public Label deadlineLabel;
+    @FXML
+    public ToggleButton filterToggleButton;
     private ObservableList<TodoItem> todoItems;
     @FXML
     private ListView<TodoItem> todoListView;
     @FXML
     private BorderPane mainBorderPane;
-
     @FXML
     private ContextMenu listContextMenu;
 
+    private FilteredList<TodoItem> filteredList;
     public void initialize() {
         //        when the selected property, a listener is added then reads and sets the information as required
         //        This is databinding example
@@ -47,10 +54,15 @@ public class Controller {
                 deadlineLabel.setText(df.format(item.getDeadline()));
             }
         });
+        //using a SortedList to automatically sort via date using Comparator comparing, using method expressions, using
+        // LocalDate default compareTo method
+        filteredList = new FilteredList<>(TodoData.getInstance().getToDoItems(), item -> true);
+        SortedList<TodoItem> sortedList = new SortedList<>(filteredList,
+                Comparator.comparing(TodoItem::getDeadline));
         //        setAll is an ObservableArrayList method so any data has be created in a ObservableArrayList FXCollections.
-        //        Because we change the tododata todoitems to an observable list, FXcollections like observableList detect
-        //        when changes are made and will automatically update.
-        todoListView.setItems(TodoData.getInstance().getToDoItems());
+        //        Because we change the To do-data to do items to an observable list, FXCollections like observableList
+        //         detect when changes are made and will automatically update.
+        todoListView.setItems(sortedList);
         todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         todoListView.getSelectionModel().selectFirst();
 
@@ -125,6 +137,15 @@ public class Controller {
 
     }
 
+    @FXML
+    public void handleKeyPressed(KeyEvent keyEvent) {
+        TodoItem selectedItem = todoListView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            if (keyEvent.getCode().equals(KeyCode.DELETE)) {
+                deleteItem(selectedItem);
+            }
+        }
+    }
 
     @FXML
     public void handleClickListView() {
@@ -143,6 +164,14 @@ public class Controller {
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             TodoData.getInstance().deleteTodoItem(item);
+        }
+    }
+
+    public void handleFilterButton() {
+        if (filterToggleButton.isSelected()){
+            filteredList.setPredicate(item -> item.getDeadline().equals(LocalDate.now()));
+        }else{
+            filteredList.setPredicate(item -> true);
         }
     }
 }

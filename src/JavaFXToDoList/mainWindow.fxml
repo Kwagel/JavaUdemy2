@@ -2,27 +2,41 @@
 
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <BorderPane fx:id="mainBorderPane" fx:controller="JavaFXToDoList.Controller" xmlns:fx="http://javafx.com/fxml">
     <top>
-        <!--        You can add a MenuBar which is very similar to the MenuBars you are familiar with, set different menus with <Menu> with the text set as the name-->
-        <MenuBar>
-            <Menu text="File">
-                <!--                To populate a menu, you use <items> to add items, with <MenuItem> and <SeparatorMenuItem> between each option-->
-                <items>
-                    <MenuItem text="New..." onAction="#showNewItemDialog"/>
-                    <SeparatorMenuItem/>
-                    <MenuItem text="Exit"/>
-                </items>
-            </Menu>
+        <VBox>
+            <MenuBar>
+                <Menu text="File">
+                    <!--                To populate a menu, you use <items> to add items, with <MenuItem> and <SeparatorMenuItem> between each option-->
+                    <items>
+                        <MenuItem text="New..." onAction="#showNewItemDialog"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem text="Exit"/>
+                    </items>
+                </Menu>
+            </MenuBar>
+            <ToolBar>
+                <HBox>
+                    <Button onAction="#showNewItemDialog">
+                        <tooltip>
+                            <Tooltip text="Add a New Todo Item"/>
+                        </tooltip>
 
-        </MenuBar>
+                    </Button>
+                    <ToggleButton fx:id="filterToggleButton" text="Today's Items" onAction="#handleFilterButton" >
+                        <tooltip>
+                            <Tooltip text="Button Down: Show Today's items only. Button Up: Show all items"/>
+                        </tooltip>
+                    </ToggleButton>
+                </HBox>
+            </ToolBar>
+        </VBox>
+        <!--        You can add a MenuBar which is very similar to the MenuBars you are familiar with, set different menus with <Menu> with the text set as the name-->
     </top>
     <left>
-        <ListView fx:id="todoListView">
+        <ListView fx:id="todoListView" onKeyReleased="#handleKeyPressed">
 
         </ListView>
     </left>
