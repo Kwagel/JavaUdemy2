@@ -29,8 +29,8 @@ public class TodoData {
     public List<TodoItem> getToDoItems() {
         return todoItems;
     }
-    public void addTodoItem(TodoItem todoItem) {
-        todoItems.add(todoItem);
+    public void addTodoItem(TodoItem newItem) {
+        todoItems.add(newItem);
     }
 
     public void loadTodoItems() throws IOException {
@@ -58,7 +58,7 @@ public class TodoData {
         Path path = Paths.get(filename);
         try (BufferedWriter bw = Files.newBufferedWriter(path)) {
             for (TodoItem item : todoItems) {
-                bw.write(String.format("%s\t%s\t%s", item.getShortDescription(), item.getDetails(),
+                bw.write(String.format("%s\t%s\t%s\t", item.getShortDescription(), item.getDetails(),
                         item.getDeadline().format(formatter)));
                 bw.newLine();
             }

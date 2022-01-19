@@ -43,6 +43,8 @@ public class Controller {
     public void showNewItemDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
+        dialog.setTitle("Add new Todo item");
+        dialog.setHeaderText("Use this dialog to create a new todo item");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("todoItemDialog.fxml"));
         try {
@@ -58,9 +60,11 @@ public class Controller {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-//            use the controller that you created when loading the fmxl, using reference.getController()
+            //            use the controller that you created when loading the fxml, using reference.getController()
             DialogController dialogController = fxmlLoader.getController();
-            dialogController.processResults();
+            TodoItem newItem = dialogController.processResults();
+            todoListView.getItems().setAll(TodoData.getInstance().getToDoItems());
+            todoListView.getSelectionModel().select(newItem);
         } else {
             System.out.println("Cancel Pressed");
         }
