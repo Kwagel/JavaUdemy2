@@ -15,9 +15,8 @@ import java.util.List;
 public class TodoData {
     private static final TodoData instance = new TodoData();
     private static final String filename = "TodoListItems.txt";
-
-    private List<ToDoItem> toDoItems;
     private final DateTimeFormatter formatter;
+    private List<TodoItem> todoItems;
 
     private TodoData() {
         formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
@@ -27,16 +26,15 @@ public class TodoData {
         return instance;
     }
 
-    public List<ToDoItem> getToDoItems() {
-        return toDoItems;
+    public List<TodoItem> getToDoItems() {
+        return todoItems;
+    }
+    public void addTodoItem(TodoItem todoItem) {
+        todoItems.add(todoItem);
     }
 
-//    public void setToDoItems(List<ToDoItem> toDoItems) {
-//        this.toDoItems = toDoItems;
-//    }
-
     public void loadTodoItems() throws IOException {
-        toDoItems = FXCollections.observableArrayList();
+        todoItems = FXCollections.observableArrayList();
         Path path = Paths.get(filename);
 
         try (BufferedReader br = Files.newBufferedReader(path)) {
@@ -50,8 +48,8 @@ public class TodoData {
 
                 LocalDate date = LocalDate.parse(dateString, formatter);
 
-                ToDoItem todoItem = new ToDoItem(shortDescription, details, date);
-                toDoItems.add(todoItem);
+                TodoItem todoItem = new TodoItem(shortDescription, details, date);
+                todoItems.add(todoItem);
             }
         }
     }
@@ -59,7 +57,7 @@ public class TodoData {
     public void storeTodoItems() throws IOException {
         Path path = Paths.get(filename);
         try (BufferedWriter bw = Files.newBufferedWriter(path)) {
-            for (ToDoItem item : toDoItems) {
+            for (TodoItem item : todoItems) {
                 bw.write(String.format("%s\t%s\t%s", item.getShortDescription(), item.getDetails(),
                         item.getDeadline().format(formatter)));
                 bw.newLine();
@@ -68,4 +66,7 @@ public class TodoData {
 
 
     }
+
+
+
 }

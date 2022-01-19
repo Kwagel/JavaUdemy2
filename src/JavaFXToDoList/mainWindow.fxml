@@ -13,7 +13,7 @@
             <Menu text="File">
                 <!--                To populate a menu, you use <items> to add items, with <MenuItem> and <SeparatorMenuItem> between each option-->
                 <items>
-                    <MenuItem text="New..."/>
+                    <MenuItem text="New..." onAction="#showNewItemDialog"/>
                     <SeparatorMenuItem/>
                     <MenuItem text="Exit"/>
                 </items>
