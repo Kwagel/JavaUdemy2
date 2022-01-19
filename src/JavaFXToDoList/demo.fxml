@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <BorderPane fx:controller="JavaFXToDoList.Controller" xmlns:fx="http://javafx.com/fxml">
     <left>
-        <ListView>
+        <ListView fx:id="todoListView" >
 
         </ListView>
     </left>
+    <center>
+        <VBox style="-fx-background-color: white">
+            <!--VBox.vgrow means that specific control will always take all the area that other controls in the vbox don't need after.-->
+            <TextArea fx:id="itemDetailsTextArea" VBox.vgrow="ALWAYS"/>
 
+            <HBox>
+                <Label text="Due: " style="-fx-background-color: white">
+                    <font>
+                        <Font name="Times New Roman bold" size="20"/>
+                    </font>
+                </Label>
+                <Label fx:id="deadlineLabel" style="-fx-background-color: white">
+                    <font>
+                        <Font name="Times New Roman bold" size="20"/>
+                    </font>
+                </Label>
+            </HBox>
+        </VBox>
+    </center>
 
 </BorderPane>
