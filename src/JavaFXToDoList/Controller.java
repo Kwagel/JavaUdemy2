@@ -1,5 +1,6 @@
 package JavaFXToDoList;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class Controller {
     @FXML
@@ -33,7 +35,11 @@ public class Controller {
     @FXML
     private ContextMenu listContextMenu;
 
+    private Predicate<TodoItem> wantAllItems;
+    private Predicate<TodoItem> wantTodaysItems;
+
     private FilteredList<TodoItem> filteredList;
+
     public void initialize() {
         //        when the selected property, a listener is added then reads and sets the information as required
         //        This is databinding example
@@ -45,20 +51,23 @@ public class Controller {
             deleteItem(item);
         });
         listContextMenu.getItems().addAll(deleteMenuItem);
-        todoListView.getSelectionModel().selectedItemProperty().addListener((newValue) -> {
-            if (newValue != null) {
-                TodoItem item = todoListView.getSelectionModel().getSelectedItem();
-                itemDetailsTextArea.setText(item.getDetails());
-                //                You can format date objects using a date time formatter ofPattern.
-                DateTimeFormatter df = DateTimeFormatter.ofPattern("MMMM d, yyyy");
-                deadlineLabel.setText(df.format(item.getDeadline()));
-            }
+
+
+        todoListView.getSelectionModel().selectedItemProperty().isNotNull().addListener((newValue) -> {
+            TodoItem item = todoListView.getSelectionModel().getSelectedItem();
+            itemDetailsTextArea.setText(item.getDetails());
+            //                You can format date objects using a date time formatter ofPattern.
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+            deadlineLabel.setText(df.format(item.getDeadline()));
         });
+
+
+        wantAllItems = item -> true;
+        wantTodaysItems = item -> item.getDeadline().equals(LocalDate.now());
         //using a SortedList to automatically sort via date using Comparator comparing, using method expressions, using
         // LocalDate default compareTo method
-        filteredList = new FilteredList<>(TodoData.getInstance().getToDoItems(), item -> true);
-        SortedList<TodoItem> sortedList = new SortedList<>(filteredList,
-                Comparator.comparing(TodoItem::getDeadline));
+        filteredList = new FilteredList<>(TodoData.getInstance().getToDoItems(), wantAllItems);
+        SortedList<TodoItem> sortedList = new SortedList<>(filteredList, Comparator.comparing(TodoItem::getDeadline));
         //        setAll is an ObservableArrayList method so any data has be created in a ObservableArrayList FXCollections.
         //        Because we change the To do-data to do items to an observable list, FXCollections like observableList
         //         detect when changes are made and will automatically update.
@@ -168,11 +177,27 @@ public class Controller {
     }
 
     public void handleFilterButton() {
-        if (filterToggleButton.isSelected()){
-            filteredList.setPredicate(item -> item.getDeadline().equals(LocalDate.now()));
-        }else{
-            filteredList.setPredicate(item -> true);
+        TodoItem selectedItem = todoListView.getSelectionModel().getSelectedItem();
+        if (filterToggleButton.isSelected()) {
+            filteredList.setPredicate(wantTodaysItems);
+//            when you click button, it selects either the same item as previous if present on sorted list, or first
+            //            one, or nothing if empty
+            if (filteredList.isEmpty()) {
+                itemDetailsTextArea.clear();
+                deadlineLabel.setText("");
+            } else if (filteredList.contains(selectedItem)) {
+                todoListView.getSelectionModel().select(selectedItem);
+            } else{
+                todoListView.getSelectionModel().selectFirst();
+            }
+        } else {
+            filteredList.setPredicate(wantAllItems);
+            todoListView.getSelectionModel().select(selectedItem);
         }
+    }
+
+    public void handleExit() {
+        Platform.exit();
     }
 }
 
