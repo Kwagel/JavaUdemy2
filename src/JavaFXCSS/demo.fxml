@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--Border Pane doenst support the alignmnet property as objects can only be in the 5 defined spaces of bored pane.-->
+<!--BorderPane only contains top bottom, left right and center, with left and right overwriting center, and top and bottom added normally-->
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane fx:controller="JavaFXCSS.Controller" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" vgap="10" hgap="10"
+          stylesheets="@styles.css">
+    <Button text="Button One" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <Button text="Button Two" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <Button text="Button Three" id="button_three" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+    <Button text="Button Four" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+    <Button text="Button Five" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+
+    <RadioButton text="Choice 1" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+</GridPane>

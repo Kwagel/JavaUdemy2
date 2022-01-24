@@ -1,0 +1,12 @@
+/*Use . to reference entire class
+*/
+.button {
+-fx-background-color: green;
+-fx-text-fill: white;
+}
+/* to reference ID, use # then ID name of thing
+*/
+#button_three{
+-fx-background-color: blue;
+-fx-text-fill: white;
+}
