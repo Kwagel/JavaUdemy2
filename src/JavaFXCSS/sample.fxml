@@ -4,6 +4,8 @@
 <!--BorderPane only contains top bottom, left right and center, with left and right overwriting center, and top and bottom added normally-->
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+
 <GridPane fx:controller="JavaFXCSS.Controller" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" vgap="10" hgap="10"
           stylesheets="@styles.css" fx:id="gridPane">
     <Button text="Open..." onAction="#handleClick" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
@@ -13,6 +15,10 @@
     <Button text="Button Five" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
 
     <RadioButton text="Choice 1" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-    <Label text="JavaFX Effects" fx:id="label" rotate="90" GridPane.rowIndex="1" GridPane.columnIndex="1" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" />
+    <Label text="JavaFX Effects" fx:id="label" rotate="90" GridPane.rowIndex="1" GridPane.columnIndex="1"
+           onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"/>
+    <Hyperlink text="www.javafx.com" GridPane.rowIndex="3" GridPane.columnIndex="0" onAction="#handleLinkClick"/>
+
+<!--    <WebView fx:id="webview" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowSpan="3"/>-->
 
 </GridPane>
