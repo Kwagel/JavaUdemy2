@@ -1,6 +1,5 @@
 package JavaFXCSS;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -73,7 +72,7 @@ public class Controller {
 	}
 
 	@FXML
-	public void handleLinkClick(ActionEvent actionEvent) {
+	public void handleLinkClick() {
 		//		System.out.println("Link Clicked");
 		//		try {
 		//			Desktop.getDesktop().browse(new URI("http://www.javafx.com"));
