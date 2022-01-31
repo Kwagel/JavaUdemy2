@@ -2,11 +2,15 @@
 
 <!--StackPane, as the name suggests, stacks all the elements on top of each other with the elements stacked in load order, top to bottom-->
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFXSceneBuilder.Controller">
+<GridPane alignment="CENTER" stylesheets="@styles.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFXSceneBuilder.Controller">
    <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
@@ -15,8 +19,20 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Button mnemonicParsing="false" text="Button" />
-      <Button mnemonicParsing="false" text="Button" />
+      <HBox spacing="5.0" GridPane.rowIndex="1">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleAction" text="Ok">
+            </Button>
+            <Button mnemonicParsing="false" text="Cancel" />
+            <Button mnemonicParsing="false" text="Help" />
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+      </HBox>
+      <Label fx:id="label" text="My Label" />
    </children>
-
 </GridPane>

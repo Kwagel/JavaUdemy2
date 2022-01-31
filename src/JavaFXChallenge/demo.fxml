@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<BorderPane fx:controller="JavaFXChallenge.Controller"
+            xmlns:fx="http://javafx.com/fxml">
+   <top>
+       <Label text="Contacts"/>
+   </top>
+    <center>
+        <TableView fx:id="contactTableView" onMouseClicked="#handleClick" >
+            <columns>
+                <TableColumn fx:id="firstNameCol" text="First Name" cellValueFactory="firstName"/>
+                <TableColumn fx:id="lastNameCol" text="Last Name" cellValueFactory="lastName"/>
+                <TableColumn fx:id="phoneNumberCol" text="Phone Number" cellValueFactory="phoneNumber"/>
+                <TableColumn fx:id="notesCol" text="Notes" cellValueFactory="notes"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>
