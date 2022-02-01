@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 
 public class Controller {
 	@FXML
-	public TableView<Contact> contactTableView;
+	public TableView<Contact> contactsTable;
 	@FXML
 	public TableColumn<Contact, String> firstNameCol;
 	@FXML
@@ -24,10 +24,10 @@ public class Controller {
 		//		lastNameCol.setCellValueFactory(new PropertyValueFactory<Contact, String>("firstName"));
 		//		phoneNumberCol.setCellValueFactory(new PropertyValueFactory<Contact, String>("firstName"));
 		//		notesCol.setCellValueFactory(new PropertyValueFactory<Contact, String>("firstName"));
-		contactTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		contactsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-		contactTableView.getSelectionModel().selectedItemProperty().isNotNull().addListener((newValue) -> {
-			Contact item = contactTableView.getSelectionModel().getSelectedItem();
+		contactsTable.getSelectionModel().selectedItemProperty().isNotNull().addListener((newValue) -> {
+			Contact item = contactsTable.getSelectionModel().getSelectedItem();
 			firstNameCol.setText(item.getFirstName());
 			lastNameCol.setText(item.getLastName());
 			phoneNumberCol.setText(item.getPhoneNumber());
@@ -38,9 +38,14 @@ public class Controller {
 	}
 
 	public void handleClick(MouseEvent mouseEvent) {
-		contactTableView.getSelectionModel().selectedItemProperty().isNotNull().addListener((newValue) -> {
+		contactsTable.getSelectionModel().selectedItemProperty().isNotNull().addListener((newValue) -> {
 			//			Contact contact = contactTableView.getSelectionModel().getSelectedItem();
 
 		});
+	}
+
+	@FXML
+	public void showAddContactDialog() {
+
 	}
 }

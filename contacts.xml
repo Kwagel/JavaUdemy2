@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contacts>
+<contact>
+	<first_name>Jacob</first_name>
+	<last_name>Sartorius</last_name>
+	<phone_number>1234</phone_number>
+	<notes>Coooool</notes>
+</contact>
+<contact>
+	<first_name>Ken</first_name>
+	<last_name>Lau</last_name>
+	<phone_number>1235234</phone_number>
+	<notes>It's me</notes>
+</contact>
+<contact>
+	<first_name>Larry</first_name>
+	<last_name>King</last_name>
+	<phone_number>5678956789</phone_number>
+	<notes>Da man</notes>
+</contact>
+</contacts>
