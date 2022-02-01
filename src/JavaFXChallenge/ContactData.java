@@ -23,20 +23,11 @@ public class ContactData {
 	private ObservableList<Contact> contacts;
 
 	public ContactData() {
-
 		// *** initialize the contacts list here ***
 		contacts = FXCollections.observableArrayList();
-		contacts.addAll(new Contact("Jacob", "Sartorius", "1234", "Coooool"),
-		                new Contact("Ken", "Lau", "1235234", "It's me"),
-		                new Contact("Larry", "King", "5678956789", "Da man"));
 
 	}
 
-	public static void main(String[] args) {
-		ContactData contactData = new ContactData();
-
-		contactData.saveContacts();
-	}
 
 	// *** Add methods to add/delete/access contacts here ***
 

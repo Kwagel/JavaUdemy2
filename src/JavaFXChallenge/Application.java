@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class Application extends javafx.application.Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("demo.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
 		primaryStage.setScene(new Scene(root, 700, 275));
 		primaryStage.setTitle("My Contacts");
 		primaryStage.show();
